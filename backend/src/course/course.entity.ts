@@ -5,7 +5,7 @@ export type CourseDocument = Course & Document;
 
 @Schema()
 export class Course extends Document {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   title: string;
 
   @Prop({ required: true })
