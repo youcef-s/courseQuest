@@ -10,8 +10,9 @@ export class CourseService {
     @InjectModel(Course.name) private courseModel: Model<CourseDocument>,
   ) { }
 
-  async findAll() {
-    return await this.courseModel.find().exec();
+  async findAll(page: number = 1, limit: number = 10) {
+    const offset = (page - 1) * limit;
+    return await this.courseModel.find().skip(offset).limit(limit).exec();
   }
 
   async create(course: CourseDto) {

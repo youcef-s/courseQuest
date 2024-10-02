@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CourseDto } from './course.dto';
@@ -9,8 +9,10 @@ export class CourseController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll() {
-    return await this.courseService.findAll();
+  async findAll(@Query('page') page: string, @Query('limit') limit: string) {
+    const pageNumber = parseInt(page, 10) || 1;
+    const limitNumber = parseInt(limit, 10) || 10;
+    return await this.courseService.findAll(pageNumber, limitNumber);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -18,5 +20,4 @@ export class CourseController {
   async create(@Body() body: CourseDto) {
     return await this.courseService.create(body);
   }
-
 }
