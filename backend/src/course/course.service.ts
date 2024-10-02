@@ -12,7 +12,12 @@ export class CourseService {
 
   async findAll(page: number = 1, limit: number = 10) {
     const offset = (page - 1) * limit;
-    return await this.courseModel.find().skip(offset).limit(limit).exec();
+    return await this.courseModel
+      .find()
+      .sort({ title: 1 })
+      .skip(offset)
+      .limit(limit)
+      .exec();
   }
 
   async create(course: CourseDto) {
@@ -22,5 +27,13 @@ export class CourseService {
     }
     const newCourse = new this.courseModel(course);
     return await newCourse.save();
+  }
+
+  async search(title: string) {
+    return await this.courseModel
+      .find({ $text: { $search: title } })
+      .sort({ score: { $meta: 'textScore' } })
+      .select({ score: { $meta: 'textScore' } })
+      .exec();
   }
 }

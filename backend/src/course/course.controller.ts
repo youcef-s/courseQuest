@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CourseService } from './course.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CourseDto } from './course.dto';
@@ -19,5 +27,14 @@ export class CourseController {
   @Post('create')
   async create(@Body() body: CourseDto) {
     return await this.courseService.create(body);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('search')
+  async search(@Body() body: { query: string }) {
+    if (!body.query || body.query.trim() === '') {
+      throw new BadRequestException('Query is required');
+    }
+    return await this.courseService.search(body.query);
   }
 }

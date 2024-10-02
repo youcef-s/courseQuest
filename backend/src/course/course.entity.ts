@@ -19,3 +19,4 @@ export class Course extends Document {
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
+CourseSchema.index({ title: 'text', instructor: 'text' });
