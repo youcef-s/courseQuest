@@ -11,7 +11,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async gerProfile(@Req() req: Request) {
-    return this.userService.findOne(req.user['username']);
+    return this.userService.getProfile(req.user['username']);
   }
 
   @Post()
