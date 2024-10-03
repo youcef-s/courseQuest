@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
       });
       localStorage.setItem('jwt', access_token);
       router.push('/courses');
-    } catch (error: any) {
+    } catch (error) {
       if (isAxiosError(error) && error.response) {
         setError(error.response.data.message || 'An error occurred during sign in.');
       } else {
@@ -110,7 +110,7 @@ const SignIn: React.FC = () => {
         </form>
 
         <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 text-center">
-          Don't have an account?{' '}
+          Don&#39;t have an account?{' '}
           <Link href="/signup" className="text-primary-600 hover:underline dark:text-primary-500">
             Sign up here!
           </Link>

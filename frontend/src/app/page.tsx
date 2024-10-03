@@ -17,7 +17,7 @@ const Home: React.FC = () => {
     if (jwt) {
       setRedirectLink('/courses');
     }
-  })
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
       <div className="flex flex-col items-center justify-center flex-grow text-center z-10">
         <h1 className="text-5xl font-bold mb-4 text-gray-900 dark:text-gray-200">🌟 Welcome to CourseQuest! 🌟</h1>
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-          We're thrilled to have you here! At CourseQuest, we're all about making your learning journey exciting and enjoyable. Discover a world of knowledge with our wide range of courses, tailored just for you!
+          We&apos;re thrilled to have you here! At CourseQuest, we&apos;re all about making your learning journey exciting and enjoyable. Discover a world of knowledge with our wide range of courses, tailored just for you!
         </p>
         <Link href={redirectLink}>
           <button className="mt-4 bg-primary-700 hover:bg-primary-800 text-white font-medium py-3 px-6 rounded-lg focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">

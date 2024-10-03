@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
       });
       localStorage.setItem('jwt', access_token);
       router.push('/courses');
-    } catch (error: any) {
+    } catch (error) {
       if (isAxiosError(error) && error.response) {
         setError(error.response.data.message || 'An error occurred during sign up.');
       } else {
@@ -65,8 +65,9 @@ const SignUp: React.FC = () => {
     <div className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased min-h-screen flex items-center justify-center">
       <div className="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg px-8 py-4 max-w-md w-full">
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-200 text-center">Join Us!</h2>
+
         <p className="text-gray-600 dark:text-gray-400 text-center mb-4">
-          We're excited to have you here! Please fill out the form below to create your account.
+          We&apos;re excited to have you here! Please fill out the form below to create your account.
         </p>
 
         <form onSubmit={handleSubmit}>

@@ -18,21 +18,19 @@ const Courses: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const storedPreference = localStorage.getItem('darkMode');
-      return storedPreference === 'true';
+      return storedPreference === 'false' ? false : true;
     }
-    return false;
+    return true;
   });
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', isDarkMode);
     localStorage.setItem('darkMode', isDarkMode.toString());
   }, [isDarkMode]);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (searchQuery) {
@@ -40,7 +38,7 @@ const Courses: React.FC = () => {
     } else {
       dispatch(fetchCourseData({ page: currentPage, limit: 20 }));
     }
-  }, [currentPage, dispatch]);
+  }, [currentPage, dispatch, searchQuery]);
 
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
@@ -62,8 +60,6 @@ const Courses: React.FC = () => {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
-
-  const [searchQuery, setSearchQuery] = useState('');
 
   if (error) return (
     <div className="flex justify-center items-center min-h-screen">

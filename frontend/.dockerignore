@@ -1,0 +1,38 @@
+# Node modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist
+build
+out
+
+# Test and coverage files
+coverage
+*.spec.js
+*.test.js
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker specific files
+Dockerfile
+docker-compose.yml
+
+# Other files and directories to ignore
+.vscode
+.idea
+*.tgz
+*.zip
+*.tar.gz
