@@ -14,8 +14,8 @@ Before you begin, ensure you have the following installed on your machine:
 ### Installation
 
 ```bash
- git clone https://github.com/yourusername/coursequest.git
- cd coursequest
+ git clone https://github.com/youcef-s/courseQuest
+ cd courseQuest
  docker-compose up --build
 ```
 
