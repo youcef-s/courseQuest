@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const Home: React.FC = () => {
+  const [redirectLink, setRedirectLink] = useState('/signup');
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const storedPreference = localStorage.getItem('darkMode');
@@ -10,6 +11,13 @@ const Home: React.FC = () => {
     }
     return true;
   });
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      setRedirectLink('/courses');
+    }
+  })
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
@@ -27,7 +35,7 @@ const Home: React.FC = () => {
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
           We're thrilled to have you here! At CourseQuest, we're all about making your learning journey exciting and enjoyable. Discover a world of knowledge with our wide range of courses, tailored just for you!
         </p>
-        <Link href="/signup">
+        <Link href={redirectLink}>
           <button className="mt-4 bg-primary-700 hover:bg-primary-800 text-white font-medium py-3 px-6 rounded-lg focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
             🎓 Get Started
           </button>
@@ -45,7 +53,7 @@ const Home: React.FC = () => {
             />
             <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
             <div
-              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${isDarkMode ? 'translate-x-full bg-primary-600' : ''
+              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full ${isDarkMode ? 'bg-primary-600' : ''
                 }`}
             ></div>
           </div>

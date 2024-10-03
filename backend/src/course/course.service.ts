@@ -10,14 +10,20 @@ export class CourseService {
     @InjectModel(Course.name) private courseModel: Model<CourseDocument>,
   ) { }
 
-  async findAll(page: number = 1, limit: number = 10) {
+  async findAll(page: number = 1, limit: number = 20) {
     const offset = (page - 1) * limit;
-    return await this.courseModel
+    const totalCourses = await this.courseModel.countDocuments().exec();
+    const total = Math.ceil(totalCourses / limit);
+    const courses = await this.courseModel
       .find()
       .sort({ title: 1 })
       .skip(offset)
       .limit(limit)
       .exec();
+    return {
+      total,
+      courses,
+    };
   }
 
   async create(course: CourseDto) {
@@ -29,11 +35,23 @@ export class CourseService {
     return await newCourse.save();
   }
 
-  async search(title: string) {
-    return await this.courseModel
+  async search(title: string, page: number = 1, limit: number = 20) {
+    const skip = (page - 1) * limit;
+    const courses = await this.courseModel
       .find({ $text: { $search: title } })
       .sort({ score: { $meta: 'textScore' } })
       .select({ score: { $meta: 'textScore' } })
+      .skip(skip)
+      .limit(limit)
       .exec();
+
+    const total = await this.courseModel.countDocuments({
+      $text: { $search: title },
+    });
+
+    return {
+      courses,
+      total: Math.ceil(total / limit),
+    };
   }
 }

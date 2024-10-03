@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ReduxProvider from './components/sub/ReduxProvider';
 
 export const metadata: Metadata = {
   title: "CourseQuest",
-  description: "a Course Management System",
+  description: "A Course Management System",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <ReduxProvider>{children}</ReduxProvider> {}
       </body>
     </html>
   );

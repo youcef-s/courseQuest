@@ -38,4 +38,19 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async signup(user: any) {
+    const userdb: any = await this.userService.findOne(user.username);
+    if (userdb) {
+      throw new HttpException(
+        'User already exists',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+    const createdUser: any = await this.userService.createUser(user);
+    const payload = { username: createdUser.username, sub: createdUser._id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
 }

@@ -30,11 +30,15 @@ export class CourseController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('search')
-  async search(@Body() body: { query: string }) {
+  @Post('search')
+  async search(
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+    @Body() body: { query: string },
+  ) {
     if (!body.query || body.query.trim() === '') {
       throw new BadRequestException('Query is required');
     }
-    return await this.courseService.search(body.query);
+    return await this.courseService.search(body.query, +page, +limit);
   }
 }
