@@ -50,10 +50,11 @@ const Home: React.FC = () => {
               className="hidden"
               checked={isDarkMode}
               onChange={toggleDarkMode}
+              aria-label="Toggle Dark Mode"
             />
             <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
             <div
-              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full ${isDarkMode ? 'bg-primary-600' : ''
+              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 ${isDarkMode ? 'translate-x-full bg-primary-600' : ''
                 }`}
             ></div>
           </div>
